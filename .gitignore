@@ -1,0 +1,14 @@
+# Compiled binaries
+src/*.exe
+src/*.o
+
+# Build directory
+build/
+
+# Generated output
+data/gpu_output/
+data/reference_structures/
+data/baseline_bins/
+
+# VS Code
+.vscode/
