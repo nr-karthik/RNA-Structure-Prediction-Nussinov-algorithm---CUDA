@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.18)
-set(CMAKE CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(rna-struct-prediction LANGUAGES CXX CUDA)
 
-add_compile_options("$<$<COMPILE_LANGUAGE:CUDA>:-lineinfo;--use_fast_math")
+add_compile_options("$<$<COMPILE_LANGUAGE:CUDA>:-lineinfo;--use_fast_math>")
 add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-O3;-Wall;-g>")
 
 
@@ -11,7 +11,7 @@ TRY_RUN(
     FIND_GPU_RESULT
     FIND_GPU_COMPILE_RESULT
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}/../src/findgpu.cu
+    ${CMAKE_CURRENT_BINARY_DIR}/src/findgpu.cu
     RUN_OUTPUT_VARIABLE GPU_ARCH_OUTPUT
 )
 
@@ -30,20 +30,17 @@ if(TBB_FOUND)
     message(STATUS "Found TBB: ${TBB_DIR} (found version \"${TBB_VERSION}\")")
 endif()
 
-add_executable (aligner
+add_executable(nussinov
     src/main.cpp
-    src/alignment.cu
+    src/nussinov.cu
     src/gpuProperty.cu
 )
 
-add_executable (compare_alignment
-    src/compare_alignment.cpp
+add_executable(nussinov_baseline
+    src/nussinov_cpu.cpp
 )
 
-add_executable (check_alignment
-    src/check_alignment.cpp
+target_link_libraries(nussinov_baseline PRIVATE
+    ${Boost_LIBRARIES}
+    ${ZLIB_LIBRARIES}
 )
-
-target_link_libraries(aligner PRIVATE ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} TBB::tbb)
-target_link_libraries(compare_alignment PRIVATE ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} TBB::tbb)
-target_link_libraries(check_alignment PRIVATE ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} TBB::tbb)
