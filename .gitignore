@@ -1,14 +1,32 @@
-# Compiled binaries
-src/*.exe
-src/*.o
-
-# Build directory
+cat > .gitignore << 'EOF'
+# ── Build artifacts ───────────────────────────────────────────────────────────
 build/
+*.o
+*.a
+*.so
 
-# Generated output
+# ── Compiled binaries in root ─────────────────────────────────────────────────
+benchmark_cpu_omp
+core
+
+# ── Compiled binary in src ────────────────────────────────────────────────────
+src/nussinov_baseline.exe
+
+# ── Generated GPU output (created at runtime) ─────────────────────────────────
 data/gpu_output/
-data/reference_structures/
-data/baseline_bins/
 
-# VS Code
+# ── Large bpRNA raw dataset files ─────────────────────────────────────────────
+data/bpRNA_1m_90_bpseqFiles.zip
+data/bpRNA_1m_90_dbnFiles.zip
+
+# ── Nsight binary files (too large, keep only .txt reports) ───────────────────
+reports/*.sqlite
+reports/*.nsys-rep
+
+# ── VS Code ───────────────────────────────────────────────────────────────────
 .vscode/
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+EOF

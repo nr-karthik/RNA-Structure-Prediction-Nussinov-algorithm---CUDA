@@ -1,0 +1,15 @@
+==PROF== Connected to process 359 (/home/knandagudiraviprakas/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/build/nussinov)
+==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see https://developer.nvidia.com/ERR_NVGPUCTRPERM
+Setting CPU threads to 8 and printing GPU device properties. 
+Device Number: 0
+  Device name: NVIDIA A30 MIG 2g.12gb
+  Device memory: 12549357568
+  Memory Clock Rate (KHz): 1215000
+  Memory Bus Width (bits): 1536
+  Peak Memory Bandwidth (GB/s): 466.560000
+[V2] Cumulative kernel time: 202.23 ms
+
+Program completed in 581 ms
+
+==PROF== Disconnected from process 359
+==WARNING== No kernels were profiled.

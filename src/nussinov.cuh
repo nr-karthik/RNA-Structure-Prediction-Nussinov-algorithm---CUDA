@@ -32,6 +32,9 @@ struct GpuNussinov{
 
     // Pipeline methods
     void runNussinov();                                     // main entry point
+    void runNussinovV2();
+    void runNussinovV3();
+    void runNussinovSequential(); 
     void allocateMem();                                     // cudaMalloc all d_ pointers
     void transferSequencesToDevice();                        // cudaMemcpy seqs CPU → GPU
     DP_PATH transferDPMatrixToHost();                             // cudaMemcpy DP table GPU → CPU

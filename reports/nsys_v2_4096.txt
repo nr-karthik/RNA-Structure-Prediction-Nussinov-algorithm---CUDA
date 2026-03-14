@@ -1,0 +1,92 @@
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Setting CPU threads to 8 and printing GPU device properties. 
+Device Number: 0
+  Device name: NVIDIA A30 MIG 2g.12gb
+  Device memory: 12549357568
+  Memory Clock Rate (KHz): 1215000
+  Memory Bus Width (bits): 1536
+  Peak Memory Bandwidth (GB/s): 466.560000
+[V2] Cumulative kernel time: 422.11 ms
+
+Program completed in 733 ms
+
+Generating '/tmp/nsys-report-a4b7.qdstrm'
+[1/8] [0%                          ] nsys_v2_4096.nsys-rep[1/8] [0%                          ] nsys_v2_4096.nsys-rep[1/8] [===================81%      ] nsys_v2_4096.nsys-rep[1/8] [========================100%] nsys_v2_4096.nsys-rep[1/8] [========================100%] nsys_v2_4096.nsys-rep
+[2/8] [0%                          ] nsys_v2_4096.sqlite[2/8] [1%                          ] nsys_v2_4096.sqlite[2/8] [2%                          ] nsys_v2_4096.sqlite[2/8] [3%                          ] nsys_v2_4096.sqlite[2/8] [4%                          ] nsys_v2_4096.sqlite[2/8] [5%                          ] nsys_v2_4096.sqlite[2/8] [6%                          ] nsys_v2_4096.sqlite[2/8] [7%                          ] nsys_v2_4096.sqlite[2/8] [8%                          ] nsys_v2_4096.sqlite[2/8] [9%                          ] nsys_v2_4096.sqlite[2/8] [10%                         ] nsys_v2_4096.sqlite[2/8] [11%                         ] nsys_v2_4096.sqlite[2/8] [12%                         ] nsys_v2_4096.sqlite[2/8] [13%                         ] nsys_v2_4096.sqlite[2/8] [14%                         ] nsys_v2_4096.sqlite[2/8] [=15%                        ] nsys_v2_4096.sqlite[2/8] [=16%                        ] nsys_v2_4096.sqlite[2/8] [=17%                        ] nsys_v2_4096.sqlite[2/8] [==18%                       ] nsys_v2_4096.sqlite[2/8] [==19%                       ] nsys_v2_4096.sqlite[2/8] [==20%                       ] nsys_v2_4096.sqlite[2/8] [==21%                       ] nsys_v2_4096.sqlite[2/8] [===22%                      ] nsys_v2_4096.sqlite[2/8] [===23%                      ] nsys_v2_4096.sqlite[2/8] [===24%                      ] nsys_v2_4096.sqlite[2/8] [====25%                     ] nsys_v2_4096.sqlite[2/8] [====26%                     ] nsys_v2_4096.sqlite[2/8] [====27%                     ] nsys_v2_4096.sqlite[2/8] [====28%                     ] nsys_v2_4096.sqlite[2/8] [=====29%                    ] nsys_v2_4096.sqlite[2/8] [=====30%                    ] nsys_v2_4096.sqlite[2/8] [=====31%                    ] nsys_v2_4096.sqlite[2/8] [=====32%                    ] nsys_v2_4096.sqlite[2/8] [======33%                   ] nsys_v2_4096.sqlite[2/8] [======34%                   ] nsys_v2_4096.sqlite[2/8] [======35%                   ] nsys_v2_4096.sqlite[2/8] [=======36%                  ] nsys_v2_4096.sqlite[2/8] [=======37%                  ] nsys_v2_4096.sqlite[2/8] [=======38%                  ] nsys_v2_4096.sqlite[2/8] [=======39%                  ] nsys_v2_4096.sqlite[2/8] [========40%                 ] nsys_v2_4096.sqlite[2/8] [========41%                 ] nsys_v2_4096.sqlite[2/8] [========42%                 ] nsys_v2_4096.sqlite[2/8] [=========43%                ] nsys_v2_4096.sqlite[2/8] [=========44%                ] nsys_v2_4096.sqlite[2/8] [=========45%                ] nsys_v2_4096.sqlite[2/8] [=========46%                ] nsys_v2_4096.sqlite[2/8] [==========47%               ] nsys_v2_4096.sqlite[2/8] [==========48%               ] nsys_v2_4096.sqlite[2/8] [==========49%               ] nsys_v2_4096.sqlite[2/8] [===========50%              ] nsys_v2_4096.sqlite[2/8] [===========51%              ] nsys_v2_4096.sqlite[2/8] [===========52%              ] nsys_v2_4096.sqlite[2/8] [===========53%              ] nsys_v2_4096.sqlite[2/8] [============54%             ] nsys_v2_4096.sqlite[2/8] [============55%             ] nsys_v2_4096.sqlite[2/8] [============56%             ] nsys_v2_4096.sqlite[2/8] [============57%             ] nsys_v2_4096.sqlite[2/8] [=============58%            ] nsys_v2_4096.sqlite[2/8] [=============59%            ] nsys_v2_4096.sqlite[2/8] [=============60%            ] nsys_v2_4096.sqlite[2/8] [==============61%           ] nsys_v2_4096.sqlite[2/8] [==============62%           ] nsys_v2_4096.sqlite[2/8] [==============63%           ] nsys_v2_4096.sqlite[2/8] [==============64%           ] nsys_v2_4096.sqlite[2/8] [===============65%          ] nsys_v2_4096.sqlite[2/8] [===============66%          ] nsys_v2_4096.sqlite[2/8] [===============67%          ] nsys_v2_4096.sqlite[2/8] [================68%         ] nsys_v2_4096.sqlite[2/8] [================69%         ] nsys_v2_4096.sqlite[2/8] [================70%         ] nsys_v2_4096.sqlite[2/8] [================71%         ] nsys_v2_4096.sqlite[2/8] [=================72%        ] nsys_v2_4096.sqlite[2/8] [=================73%        ] nsys_v2_4096.sqlite[2/8] [=================74%        ] nsys_v2_4096.sqlite[2/8] [==================75%       ] nsys_v2_4096.sqlite[2/8] [==================76%       ] nsys_v2_4096.sqlite[2/8] [==================77%       ] nsys_v2_4096.sqlite[2/8] [==================78%       ] nsys_v2_4096.sqlite[2/8] [===================79%      ] nsys_v2_4096.sqlite[2/8] [===================80%      ] nsys_v2_4096.sqlite[2/8] [===================81%      ] nsys_v2_4096.sqlite[2/8] [===================82%      ] nsys_v2_4096.sqlite[2/8] [====================83%     ] nsys_v2_4096.sqlite[2/8] [====================84%     ] nsys_v2_4096.sqlite[2/8] [====================85%     ] nsys_v2_4096.sqlite[2/8] [=====================86%    ] nsys_v2_4096.sqlite[2/8] [=====================87%    ] nsys_v2_4096.sqlite[2/8] [=====================88%    ] nsys_v2_4096.sqlite[2/8] [=====================89%    ] nsys_v2_4096.sqlite[2/8] [======================90%   ] nsys_v2_4096.sqlite[2/8] [======================91%   ] nsys_v2_4096.sqlite[2/8] [======================92%   ] nsys_v2_4096.sqlite[2/8] [=======================93%  ] nsys_v2_4096.sqlite[2/8] [=======================94%  ] nsys_v2_4096.sqlite[2/8] [=======================95%  ] nsys_v2_4096.sqlite[2/8] [=======================96%  ] nsys_v2_4096.sqlite[2/8] [========================97% ] nsys_v2_4096.sqlite[2/8] [========================98% ] nsys_v2_4096.sqlite[2/8] [========================99% ] nsys_v2_4096.sqlite[2/8] [========================100%] nsys_v2_4096.sqlite[2/8] [========================100%] nsys_v2_4096.sqlite
+SKIPPED: /home/knandagudiraviprakas/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/reports/nsys_v2_4096.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)  Max (ns)   StdDev (ns)       Name     
+ --------  ---------------  ---------  ----------  ----------  --------  ---------  -----------  --------------
+     80.4        693680981         17  40804763.6  15927289.0     15360  100118018   43955046.1  poll          
+     17.5        151214540        508    297666.4     47320.0       991   20428950    1282736.1  ioctl         
+      1.2         10203685         16    637730.3      1860.0       669    9913235    2474354.6  read          
+      0.5          4296279         27    159121.4     14610.0     11680    2487736     478330.9  mmap64        
+      0.1           915982          9    101775.8     21140.0     16389     731852     236354.2  sem_timedwait 
+      0.1           756525         46     16446.2     13065.0      3970     120690      17051.5  open64        
+      0.1           561292        224      2505.8        50.0        40      78720      12602.1  fgets         
+      0.1           457413         73      6265.9      5340.0      2210      20900       3391.0  fopen         
+      0.0           351861          7     50265.9      7540.0      5060     304920     112338.3  open          
+      0.0           233002         17     13706.0      5131.0      2930     119140      27548.6  mmap          
+      0.0           160041          2     80020.5     80020.5     69441      90600      14961.7  pthread_create
+      0.0           120950         69      1752.9      1560.0       990       4650        821.7  fclose        
+      0.0            67451          7      9635.9      9340.0      6580      14400       2393.5  munmap        
+      0.0            54799          2     27399.5     27399.5     14530      40269      18200.2  socket        
+      0.0            44400          2     22200.0     22200.0     14600      29800      10748.0  fopen64       
+      0.0            40067         60       667.8       690.0       400       1249        163.2  fcntl         
+      0.0            36192         12      3016.0      2925.5       960       4990       1151.9  write         
+      0.0            28270          1     28270.0     28270.0     28270      28270          0.0  connect       
+      0.0            24050          3      8016.7      9340.0      5220       9490       2423.1  pipe2         
+      0.0            14409         20       720.5       600.0       580       2740        478.1  writev        
+      0.0             9270          1      9270.0      9270.0      9270       9270          0.0  bind          
+      0.0             3630          7       518.6       490.0       430        680         90.8  dup           
+      0.0             1520          1      1520.0      1520.0      1520       1520          0.0  listen        
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)                Name               
+ --------  ---------------  ---------  -----------  -----------  ---------  ---------  -----------  ---------------------------------
+     41.0        234328563       1548     151375.0       2770.0       2540     515541     210392.1  cudaLaunchKernel                 
+     32.8        187400186          1  187400186.0  187400186.0  187400186  187400186          0.0  cudaDeviceSynchronize            
+     24.5        140302917          4   35075729.3     119535.0       4620  140059227   69989078.9  cudaMalloc                       
+      0.9          5301193          3    1767064.3     227131.0       6960    5067102    2860035.9  cudaMemcpy                       
+      0.5          3019947          2    1509973.5    1509973.5    1039312    1980635     665615.9  cudaGetDeviceProperties_v2_v12000
+      0.3          1490063          4     372515.8     171745.0       7120    1139453     530735.8  cudaFree                         
+      0.0            29150          2      14575.0      14575.0       4980      24170      13569.4  cudaMemset                       
+      0.0            13090          2       6545.0       6545.0       4080       9010       3486.0  cudaEventRecord                  
+      0.0             6160          1       6160.0       6160.0       6160       6160          0.0  cudaEventSynchronize             
+      0.0             4560          2       2280.0       2280.0        550       4010       2446.6  cudaEventCreate                  
+      0.0             1280          2        640.0        640.0        360        920        396.0  cudaEventDestroy                 
+      0.0              780          1        780.0        780.0        780        780          0.0  cuModuleGetLoadingMode           
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                         Name                       
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  --------------------------------------------------
+    100.0        420415147       1548  271586.0  289122.0      3583    523523     157585.7  nussinov_kernel_v2(int *, int *, char *, int, int)
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)           Operation          
+ --------  ---------------  -----  ---------  ---------  --------  --------  -----------  ----------------------------
+     95.2          4978108      1  4978108.0  4978108.0   4978108   4978108          0.0  [CUDA memcpy Device-to-Host]
+      4.8           248738      2   124369.0   124369.0      2753    245985     171991.0  [CUDA memset]               
+      0.1             3104      2     1552.0     1552.0       896      2208        927.7  [CUDA memcpy Host-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation          
+ ----------  -----  --------  --------  --------  --------  -----------  ----------------------------
+     96.115      2    48.058    48.058     0.015    96.100       67.942  [CUDA memset]               
+     96.100      1    96.100    96.100    96.100    96.100        0.000  [CUDA memcpy Device-to-Host]
+      0.016      2     0.008     0.008     0.000     0.015        0.011  [CUDA memcpy Host-to-Device]
+
+Generated:
+    /home/knandagudiraviprakas/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/reports/nsys_v2_4096.nsys-rep
+    /home/knandagudiraviprakas/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/reports/nsys_v2_4096.sqlite

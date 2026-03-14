@@ -25,6 +25,7 @@ int main(int argc, char** argv){
     uint32_t maxSequences;
     uint32_t numThreads;
     uint32_t batchSize;
+    uint32_t version;
 
     // parse command line options
     po::options_description desc("Options");
@@ -32,8 +33,9 @@ int main(int argc, char** argv){
     ("sequence,i", po::value<std::string>(&sequenceFilename)->required(), "Input sequences in FASTA file format [REQUIRED]")
     ("output,o", po::value<std::string>(&outputFilename)->required(), "Output alignments in FASTA file format [REQUIRED]")
     ("numThreads,T", po::value<uint32_t>(&numThreads)->default_value(8), "Number of Threads (range: 1-8)")
-    ("maxPairs,N", po::value<uint32_t>(&maxSequences)->default_value(500), "Maximum number of sequence pairs to read from the input sequence file")
+    ("maxSeqs,N", po::value<uint32_t>(&maxSequences)->default_value(500), "Maximum number of sequences to process")
     ("batchSize,b", po::value<uint32_t>(&batchSize)->default_value(100), "Number of pairs in a batch. Note: each batch consists of 2x batchSize sequences.")
+    ("version,v", po::value<uint32_t>(&version)->default_value(1), "Kernel version: 1=V1, 2=V2 3=Sequential")
     ("help,h", "Print help messages");
 
     po::options_description allOptions;
@@ -88,8 +90,18 @@ int main(int argc, char** argv){
 
         if((currSeqCount >= (int)batchSize) || (totalSeqCount >= (int)maxSequences)){
             Nussinov.numSeqs = currSeqCount;
-            Nussinov.runNussinov();
+            if (version == 1)
+                Nussinov.runNussinov();
+            else if(version == 2)
+                Nussinov.runNussinovV2();
+            else if(version == 3){
+                Nussinov.runNussinovV3();
+            }else{
+                Nussinov.runNussinovSequential();
+            }
+                
 
+                
             //Write the structure to the output file
             bool append = totalSeqCount > batchSize;
             Nussinov.writeStructures(outputFilename, append);

@@ -93,8 +93,8 @@ void traceback(int i, int j, string &structure)
 
 int main(){   
     
-    ifstream infile("data/baseline_bins/seq_256.fa");
-    ofstream myFile("data/reference_structures/ref_seq_256.txt");
+    ifstream infile("data/baseline_bins/seq_10000.fa");
+    ofstream myFile("data/reference_structures/ref_seq_10000.txt");
 
     if(!infile.is_open()){
         printf("Error: could not open file\n");
@@ -108,7 +108,7 @@ int main(){
 
     string line, header, sequence;
     int sequence_count = 0;
-    int max_seqs = 10;
+    int max_seqs = 1;
 
     while(getline(infile, line)){
         if(line.empty()) continue;

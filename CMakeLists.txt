@@ -1,17 +1,18 @@
 cmake_minimum_required(VERSION 3.18)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 project(rna-struct-prediction LANGUAGES CXX CUDA)
 
 add_compile_options("$<$<COMPILE_LANGUAGE:CUDA>:-lineinfo;--use_fast_math>")
 add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-O3;-Wall;-g>")
 
-
 TRY_RUN(
     FIND_GPU_RESULT
     FIND_GPU_COMPILE_RESULT
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}/src/findgpu.cu
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/findgpu.cu
     RUN_OUTPUT_VARIABLE GPU_ARCH_OUTPUT
 )
 
@@ -19,21 +20,30 @@ if("${FIND_GPU_COMPILE_RESULT}" AND ("${FIND_GPU_RESULT}" EQUAL 0))
     message(STATUS "CUDA-capable GPU found. GPU architecture: ${GPU_ARCH_OUTPUT}")
     set(CMAKE_CUDA_ARCHITECTURES ${GPU_ARCH_OUTPUT})
 else()
-    message(STATUS "No CUDA-capable GPU found. Generating binary to support multiple GPU generations.")
+    message(STATUS "No CUDA-capable GPU found. Supporting multiple architectures.")
     set(CMAKE_CUDA_ARCHITECTURES 70 75 80 86 89 90)
 endif()
 
 find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(TBB REQUIRED CONFIG)
+
 if(TBB_FOUND)
-    message(STATUS "Found TBB: ${TBB_DIR} (found version \"${TBB_VERSION}\")")
+    message(STATUS "Found TBB: ${TBB_DIR} (version ${TBB_VERSION})")
 endif()
 
 add_executable(nussinov
     src/main.cpp
     src/nussinov.cu
     src/gpuProperty.cu
+)
+
+target_link_libraries(nussinov PRIVATE
+    ${Boost_LIBRARIES}
+    ${ZLIB_LIBRARIES}
+    TBB::tbb
+    z
+    boost_program_options
 )
 
 add_executable(nussinov_baseline
@@ -43,4 +53,13 @@ add_executable(nussinov_baseline
 target_link_libraries(nussinov_baseline PRIVATE
     ${Boost_LIBRARIES}
     ${ZLIB_LIBRARIES}
+)
+
+add_executable(benchmark_cpu_omp
+    src/benchmark_cpu_omp.cpp
+)
+target_compile_options(benchmark_cpu_omp PRIVATE -fopenmp)
+target_link_libraries(benchmark_cpu_omp PRIVATE
+    ${ZLIB_LIBRARIES}
+    gomp
 )
