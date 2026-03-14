@@ -83,7 +83,7 @@ SSH into the DSMLP login node, then clone the repo into your home directory:
 ```bash
 ssh <your-username>@dsmlp-login.ucsd.edu
 
-git clone https://github.com/<your-username>/RNA-Structure-Prediction-Nussinov-algorithm---CUDA.git
+git clone https://github.com/nr-karthik/RNA-Structure-Prediction-Nussinov-algorithm---CUDA.git
 cd RNA-Structure-Prediction-Nussinov-algorithm---CUDA
 ```
 
@@ -105,22 +105,8 @@ From the DSMLP login node:
     -c 8 \
     -g 1 \
     -m 8 \
-    -i yatisht/ece213-wi26:latest
-```
-
-You are now inside a container on an A30 node. Navigate to your repo:
-
-```bash
-cd ~/RNA-Structure-Prediction-Nussinov-algorithm---CUDA
-```
-
----
-
-### Step 3 — Run the Full Pipeline
-
-```bash
-chmod +x run.sh run_baseline.sh
-./run.sh
+    -i yatisht/ece213-wi26:latest \
+    -f ~/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/run-commands.sh
 ```
 
 This script does the following in order:
@@ -160,8 +146,6 @@ Expected benchmark output (kernel-only times, A30):
 
 ---
 
-### Alternative: Launch Node and Auto-Run Everything
-
 From the DSMLP login node, this does Steps 2 and 3 in a single command:
 
 ```bash
@@ -171,7 +155,7 @@ From the DSMLP login node, this does Steps 2 and 3 in a single command:
     -g 1 \
     -m 8 \
     -i yatisht/ece213-wi26:latest \
-    -f ~/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/run.sh
+    -f ~/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/run-commands.sh
 ```
 
 ---
@@ -201,8 +185,8 @@ Built targets:
     --maxSeqs    10 \
     --batchSize  10 \
     --numThreads 4 \
-    --version    4
-#   version: 1=V1  2=V2  3=Sequential  4=V3
+    --version    3
+#   version: 1=V1  2=V2  3=V3  4=Sequential
 ```
 
 **All flags:**
