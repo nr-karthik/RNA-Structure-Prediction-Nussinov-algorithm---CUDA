@@ -84,7 +84,6 @@ SSH into the DSMLP login node, then clone the repo into your home directory:
 ssh <your-username>@dsmlp-login.ucsd.edu
 
 git clone https://github.com/nr-karthik/RNA-Structure-Prediction-Nussinov-algorithm---CUDA.git
-cd RNA-Structure-Prediction-Nussinov-algorithm---CUDA
 ```
 
 The repository already includes:
@@ -100,13 +99,7 @@ No dataset download or separate CPU baseline step is required.
 From the DSMLP login node:
 
 ```bash
-/opt/launch-sh/bin/launch.sh \
-    -v a30 \
-    -c 8 \
-    -g 1 \
-    -m 8 \
-    -i yatisht/ece213-wi26:latest \
-    -f ~/RNA-Structure-Prediction-Nussinov-algorithm---CUDA/run-commands.sh
+/opt/launch-sh/bin/launch.sh -v a30 -c 8 -g 1 -m 8 -i yatisht/ece213-wi26:latest -f ./RNA-Structure-Prediction-Nussinov-algorithm---CUDA/run-commands.sh
 ```
 
 This script does the following in order:

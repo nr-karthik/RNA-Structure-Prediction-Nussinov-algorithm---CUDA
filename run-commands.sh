@@ -1,91 +1,129 @@
-# #!/bin/sh
-
-# # Change directory (DO NOT CHANGE!)
-# repoDir=$(dirname "$(realpath "$0")")
-# echo $repoDir
-# cd $repoDir
-
-# mkdir -p build
-# cd build
-# cmake ..
-# make -j4
-# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PWD}/tbb_cmake_build/tbb_cmake_build_subdir_release
-
-
-# # nsys profile --stats=true 
-# ## Basic run to align the first 10 pairs (20 sequences) in the sequences.fa in batches of 2 reads
-# ## HINT: may need to change values for the assignment tasks. You can create a sequence of commands
-# # ./aligner --sequence ../data/sequences.fa --maxPairs 5000 --batchSize 1000 --output alignment.fa --numThreads 8
-
-# ## Debugging with Compute Sanitizer
-# ## Run this command to detect illegal memory accesses (out-of-bounds reads/writes) and race conditions.
-# compute-sanitizer ./aligner --sequence ../data/sequences.fa --maxPairs 5000 --batchSize 1000 --output alignment.fa --numThreads 8
-
-# ## For debugging and evaluate the alignment accuracy
-# ./check_alignment --raw ../data/sequences.fa --alignment alignment.fa       # add -v to see failed result instead of a summary
-# ./compare_alignment --reference ../data/reference_alignment.fa --estimate alignment.fa # add -v to see pair-wise comparisons
-
-#!/bin/sh
-
-# repoDir=$(dirname "$(realpath "$0")")
-# echo $repoDir
-# cd $repoDir
-
-# mkdir -p build
-# cd build
-# cmake ..
-# make -j4
-# cd ..
-
-# mkdir -p data/gpu_output
-
-# echo "=== V2 seq_10000 20 sequences ==="
-# ./build/nussinov --sequence data/baseline_bins/seq_10000.fa \
-#     --output data/gpu_output/gpu_v2_10000.txt \
-#     --maxSeqs 20 --batchSize 20 --numThreads 8 --version 2
-
-
-
-#!/bin/sh
+#!/bin/bash
 
 repoDir=$(dirname "$(realpath "$0")")
-echo $repoDir
+echo "Repo: $repoDir"
 cd $repoDir
 
-rm -rf build
+# ── Directories ───────────────────────────────────────────────────────────────
+mkdir -p data/gpu_output
+mkdir -p data/reference_structures
+
+# ── Step 1: CPU baseline ──────────────────────────────────────────────────────
+echo "--- Running CPU baseline ---"
+chmod +x run_baseline.sh
+./run_baseline.sh
+
+# ── Step 2: Build ─────────────────────────────────────────────────────────────
+echo "--- Building GPU project ---"
 mkdir -p build
 cd build
-cmake ..
+cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j4
-cd ..
 
-mkdir -p data/gpu_output
-mkdir -p reports
+if [ $? -ne 0 ]; then
+    echo "Build failed — stopping"
+    exit 1
+fi
+cd $repoDir
 
-echo "=== NCU Roofline V2 seq_256 ==="
-ncu --set roofline \
-    --kernel-name nussinov_kernel_v2 \
-    ./build/nussinov \
-    --sequence data/baseline_bins/seq_256.fa \
-    --output /dev/null \
-    --maxSeqs 10 --batchSize 10 --numThreads 8 --version 2 \
-    2>&1 | tee reports/ncu_roofline_v2_256.txt
+# ── Step 3: Validate V1, V2, V3 on 10 sequences ──────────────────────────────
+echo "--- Validating V1 ---"
+./build/nussinov \
+    --sequence   data/baseline_bins/seq_256.fa \
+    --output     data/gpu_output/gpu_v1_val.txt \
+    --maxSeqs    10 \
+    --batchSize  10 \
+    --numThreads 4 \
+    --version    1
 
-echo "=== NCU Full V2 seq_256 ==="
-ncu --set full \
-    --kernel-name nussinov_kernel_v2 \
-    ./build/nussinov \
-    --sequence data/baseline_bins/seq_256.fa \
-    --output /dev/null \
-    --maxSeqs 10 --batchSize 10 --numThreads 8 --version 2 \
-    2>&1 | tee reports/ncu_full_v2_256.txt
+echo "--- Validating V2 ---"
+./build/nussinov \
+    --sequence   data/baseline_bins/seq_256.fa \
+    --output     data/gpu_output/gpu_v2_val.txt \
+    --maxSeqs    10 \
+    --batchSize  10 \
+    --numThreads 4 \
+    --version    2
 
-echo "=== NSYS V2 seq_4096 ==="
-nsys profile \
-    --output reports/nsys_v2_4096 \
-    --stats=true \
-    ./build/nussinov \
-    --sequence data/baseline_bins/seq_4096.fa \
-    --output /dev/null \
-    --maxSeqs 10 --batchSize 10 --numThreads 8 --version 2 \
-    2>&1 | tee reports/nsys_v2_4096.txt
+echo "--- Validating V3 ---"
+./build/nussinov \
+    --sequence   data/baseline_bins/seq_256.fa \
+    --output     data/gpu_output/gpu_v3_val.txt \
+    --maxSeqs    10 \
+    --batchSize  10 \
+    --numThreads 4 \
+    --version    4
+
+# ── Step 4: Validate scores against CPU reference ─────────────────────────────
+echo "--- Validating V1 scores ---"
+python3 src/validate.py \
+    --gpu data/gpu_output/gpu_v1_val.txt \
+    --ref data/reference_structures/ref_seq_256.txt
+
+echo "--- Validating V2 scores ---"
+python3 src/validate.py \
+    --gpu data/gpu_output/gpu_v2_val.txt \
+    --ref data/reference_structures/ref_seq_256.txt
+
+echo "--- Validating V3 scores ---"
+python3 src/validate.py \
+    --gpu data/gpu_output/gpu_v3_val.txt \
+    --ref data/reference_structures/ref_seq_256.txt
+
+# ── Step 5: Full benchmark — V1, V2, V3 across all sequence bins ──────────────
+echo "========================================="
+echo "--- Full Benchmark ---"
+echo "========================================="
+
+VERSIONS=("1" "2" "3")
+VERSION_NAMES=("V1" "V2" "V3")
+SEQ_BINS=("seq_256.fa 24685" "seq_512.fa 2024" "seq_4096.fa 10" "seq_10000.fa 20")
+
+for i in "${!VERSIONS[@]}"; do
+    ver=${VERSIONS[$i]}
+    name=${VERSION_NAMES[$i]}
+    echo ""
+    echo "--- Benchmarking $name ---"
+    for entry in "${SEQ_BINS[@]}"; do
+        file=$(echo $entry | cut -d' ' -f1)
+        maxseqs=$(echo $entry | cut -d' ' -f2)
+        bin="${file%.fa}"
+        echo "  [$name] $bin ($maxseqs seqs)"
+        ./build/nussinov \
+            --sequence   data/baseline_bins/$file \
+            --output     data/gpu_output/bench_${name}_${bin}.txt \
+            --maxSeqs    $maxseqs \
+            --batchSize  1000 \
+            --numThreads 8 \
+            --version    $ver
+    done
+done
+
+# ── Step 6: Memory check — uncomment when needed ──────────────────────────────
+# echo "--- compute-sanitizer on V3 ---"
+# compute-sanitizer ./build/nussinov \
+#     --sequence   data/baseline_bins/seq_256.fa \
+#     --output     data/gpu_output/gpu_v3_sanitizer.txt \
+#     --maxSeqs    10 \
+#     --batchSize  10 \
+#     --numThreads 4 \
+#     --version    4
+
+# ── Step 7: Nsight profiling — uncomment when needed ──────────────────────────
+# echo "--- nsys profile V2 seq_4096 ---"
+# nsys profile --stats=true ./build/nussinov \
+#     --sequence   data/baseline_bins/seq_4096.fa \
+#     --output     data/gpu_output/gpu_v2_profile.txt \
+#     --maxSeqs    10 \
+#     --batchSize  10 \
+#     --numThreads 8 \
+#     --version    2
+
+# echo "--- nsys profile V3 seq_4096 ---"
+# nsys profile --stats=true ./build/nussinov \
+#     --sequence   data/baseline_bins/seq_4096.fa \
+#     --output     data/gpu_output/gpu_v3_profile.txt \
+#     --maxSeqs    10 \
+#     --batchSize  10 \
+#     --numThreads 8 \
+#     --version    4
